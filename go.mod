@@ -35,8 +35,10 @@ require (
 	gopkg.in/yaml.v2 v2.2.8
 )
 
-replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.1
-
-replace github.com/keybase/go-keychain => github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4
+replace (
+	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.2-alpha.regen.1
+	github.com/keybase/go-keychain => github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4
+	github.com/tendermint/tendermint => github.com/wukongcheng/tendermint v0.22.7-0.20200325040107-c5bdcb31bf43
+)
 
 go 1.14

@@ -27,6 +27,7 @@ const (
 	flagPruningKeepEvery     = "pruning-keep-every"
 	flagPruningSnapshotEvery = "pruning-snapshot-every"
 	flagCPUProfile           = "cpu-profile"
+	flagReap           		 = "reap"
 	FlagMinGasPrices         = "minimum-gas-prices"
 	FlagHaltHeight           = "halt-height"
 	FlagHaltTime             = "halt-time"
@@ -103,6 +104,7 @@ which accepts a path for the resulting pprof file.
 	cmd.Flags().Uint64(FlagHaltTime, 0, "Minimum block time (in Unix seconds) at which to gracefully halt the chain and shutdown the node")
 	cmd.Flags().Bool(FlagInterBlockCache, true, "Enable inter-block caching")
 	cmd.Flags().String(flagCPUProfile, "", "Enable CPU profiling and write to the provided file")
+	cmd.Flags().Bool(flagReap, false, "Reap old blocks, keep latest 2 blocks")
 
 	// add support for all Tendermint-specific command line options
 	tcmd.AddNodeFlags(cmd)
@@ -204,6 +206,7 @@ func startInProcess(ctx *Context, appCreator AppCreator) (*node.Node, error) {
 		node.DefaultDBProvider,
 		node.DefaultMetricsProvider(cfg.Instrumentation),
 		ctx.Logger.With("module", "node"),
+		viper.GetBool(flagReap),
 	)
 	if err != nil {
 		return nil, err
